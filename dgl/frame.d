@@ -1,9 +1,9 @@
 ﻿module dgl.frame;
 
-public
-	import dgl.internal.msgloop;
+public import
+	dgl.internal.geometry,
+	dgl.internal.msgloop;
 
-import dgl.internal.window;
 import std.utf;
 
 pragma(lib, "gdi32.lib");
@@ -14,6 +14,9 @@ pragma(lib, "gdi32.lib");
  */
 class TopFrame
 {
+protected:
+	import dgl.internal.window;
+
 private:
 	enum classname = "DGLFrameClass"w;    //ウィンドウクラス
 	
@@ -107,8 +110,8 @@ public:
 		case WM_CREATE:
 			// Widgetの初期サイズを設定する
 	//		assert(widget.created == false);
-			RECT r;
-			GetWindowRect(platformHandle, &r);
+			Rect r;
+			GetWindowRect(platformHandle, r.ptr);
 	//		widget.bound = r;
 			
 			++MsgLoop.frameCount;
@@ -122,8 +125,8 @@ public:
 	//		handyPosChanging = true;
 	//		scope(exit) handyPosChanging = false;
 			
-			RECT r;
-			GetWindowRect(platformHandle, &r);
+			Rect r;
+			GetWindowRect(platformHandle, r.ptr);
 	//		widget.bound = r;
 			
 			//p("WindowPosChanged: %s", widget.bound);

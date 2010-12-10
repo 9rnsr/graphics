@@ -15,7 +15,11 @@ class MsgLoop
 	
 	package static uint frameCount = 0;
 	
-	static int run(HWND hwndModal=null, IdleMsgProc idleProc=null)
+	static int run(IdleMsgProc idleProc=null)
+	{
+		return run(null, idleProc);
+	}
+	static int run(HWND hwndModal, IdleMsgProc idleProc=null)
 	{
 		HWND hOwner = hwndModal ? GetWindow(hwndModal, GW_OWNER) : null;
 		bool bSendEnterIdle = (hOwner ? !(GetWindowLong(hOwner, GWL_STYLE) & DS_NOIDLEMSG) : false);
